@@ -1,32 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio_web/bloc/ContainerSizer.dart';
 import 'package:portfolio_web/widget/CategorySelector.dart';
 
+import 'BorderSelector.dart';
+
 class CardSelector extends StatefulWidget {
-  CardSelector();
+  ContainerSizer sizer;
+
+  CardSelector({@required this.sizer});
 
   @override
   State<StatefulWidget> createState() => CardSelectorState();
 }
 
 class CardSelectorState extends State<CardSelector> {
-  bool notOpen = false;
-
   @override
   Widget build(BuildContext context) {
-    return notOpen
-        ? Container(
-            child: CategorySelector(),
-          )
-        : InkWell(
-            child: FlutterLogo(
-              size: 128,
-            ),
-            onTap: () => setState(
-              () {
-                notOpen = true;
-              },
-            ),
-          );
+    return Padding(
+      padding: EdgeInsets.fromLTRB(25, 10, 0, 0),
+      child: Container(
+        child: CategorySelector(this.widget.sizer),
+        decoration: myBoxDecoration(Colors.blue),
+      ),
+    );
   }
 }

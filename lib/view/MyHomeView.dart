@@ -1,9 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio_web/bloc/ContainerSizer.dart';
 import 'package:portfolio_web/widget/CardContainer.dart';
 import 'package:portfolio_web/widget/CardSelector.dart';
 
 class MyHomeView extends StatelessWidget {
+
+  ContainerSizer containerSizer = ContainerSizer();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,18 +18,19 @@ class MyHomeView extends StatelessWidget {
             flex: 3,
             child: Row(
               children: [
-                CardSelector()
+                CardSelector(sizer: containerSizer,)
               ],
             ),
           ),
           Flexible(
             flex: 7,
-            child: Row(
-              children: [
-                CardContainer(color: Colors.red),
-                CardContainer(color: Colors.blue),
-                CardContainer(color: Colors.green),
-              ],
+            child: StreamBuilder<List<Widget>>(
+              stream: containerSizer.getSize(),
+              builder: (BuildContext context, AsyncSnapshot<List<Widget>> snapshot) {
+                return snapshot.data != null ? Row(
+                  children: snapshot.data,
+                ) : Row(children : []);
+              },
             ),
           ),
         ],
