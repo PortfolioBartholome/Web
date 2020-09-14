@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_web/bloc/ContainerSizer.dart';
-import 'package:portfolio_web/widget/CardContainer.dart';
 import 'package:portfolio_web/widget/CardSelector.dart';
 
 class MyHomeView extends StatelessWidget {
 
-  ContainerSizer containerSizer = ContainerSizer();
+  final ContainerSizer containerSizer = ContainerSizer();
 
 
   @override
@@ -25,7 +24,7 @@ class MyHomeView extends StatelessWidget {
           Flexible(
             flex: 7,
             child: StreamBuilder<List<Widget>>(
-              stream: containerSizer.getSize(),
+              stream: containerSizer.stream,
               builder: (BuildContext context, AsyncSnapshot<List<Widget>> snapshot) {
                 return snapshot.data != null ? Row(
                   children: snapshot.data,

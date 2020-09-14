@@ -1,28 +1,33 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
+import 'bloc.dart';
 
-class ContainerSizer {
-  StreamController<List<Widget>> _size;
-  List<Widget> containers;
+class ContainerSizer extends Bloc {
+  final StreamController<List<Widget>> _size = StreamController<List<Widget>>();
+  final List<Widget> containers = new List<Widget>();
+
+  // Input
+  Sink<List<Widget>> get sink => _size.sink;
+
+  // Output
+  Stream<List<Widget>> get stream => _size.stream;
 
   ContainerSizer() {
-    _size = StreamController<List<Widget>>.broadcast();
-    containers = new List<Widget>();
-    _size.add(containers);
+    sink.add(containers);
   }
 
   increaseSize(Widget widget) {
     containers.add(widget);
-    _size.add(containers);
+    sink.add(containers);
   }
-  decreaseSize(Widget widget){
-    if(containers.contains(widget)) {
+
+  decreaseSize(Widget widget) {
+    if (containers.contains(widget)) {
       containers.remove(widget);
-      _size.add(containers);
+      sink.add(containers);
     }
   }
 
-
-  Stream<List<Widget>> getSize() => _size.stream;
-
+  @override
+  dispose() => _size.close();
 }
