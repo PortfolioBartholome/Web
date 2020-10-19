@@ -64,6 +64,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0-nullsafety"
+  flushbar:
+    dependency: "direct main"
+    description:
+      name: flushbar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.10.4"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -81,6 +88,27 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  global_configuration:
+    dependency: "direct main"
+    description:
+      name: global_configuration
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.6.0"
+  http:
+    dependency: "direct main"
+    description:
+      name: http
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.12.2"
+  http_parser:
+    dependency: transitive
+    description:
+      name: http_parser
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.4"
   matcher:
     dependency: transitive
     description:
@@ -109,6 +137,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0-nullsafety"
+  pedantic:
+    dependency: transitive
+    description:
+      name: pedantic
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.9.2"
   provider:
     dependency: transitive
     description:
@@ -179,4 +214,4 @@ packages:
     version: "2.1.0-nullsafety.2"
 sdks:
   dart: ">=2.10.0-0.0.dev <2.10.0"
-  flutter: ">=1.16.0"
+  flutter: ">=1.16.0 <2.0.0"

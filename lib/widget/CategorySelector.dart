@@ -1,35 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_web/bloc/ContainerSizer.dart';
+import 'package:portfolio_web/bloc/bloc_category.dart';
+import 'package:portfolio_web/controller/CardContainerController.dart';
+import 'package:portfolio_web/model/Project.dart';
+import 'package:portfolio_web/services/SettingsManager.dart';
 import 'package:portfolio_web/widget/CardContainer.dart';
+import 'package:portfolio_web/widget/CheckBoxCategory.dart';
 
-class CategorySelector extends StatefulWidget {
-  ContainerSizer sizer;
+import 'CardContainerProject.dart';
 
-  CategorySelector(this.sizer);
+class CategorySelector extends StatelessWidget {
+  final ContainerSizer sizer;
+  final SettingsManager settingsManager;
+  final List<Project> projects;
 
-  @override
-  State<StatefulWidget> createState() => CategorySelectorState();
-}
+  CategorySelector(this.sizer, this.settingsManager, this.projects);
 
-class CategorySelectorState extends State<CategorySelector> {
-  bool isAboutMe = false;
-  bool isProject = false;
-  bool isCV = false;
-  CardContainer me;
-  CardContainer project;
-  CardContainer cv;
-
-  @override
-  void initState() {
-    super.initState();
-    me = CardContainer(color: Colors.blue,size: this.widget.sizer.containers.length);
-    project = CardContainer(color: Colors.red,size: this.widget.sizer.containers.length);
-    cv = CardContainer(color: Colors.green,size: this.widget.sizer.containers.length);
-  }
 
   @override
   Widget build(BuildContext context) {
+    List<CardContainer> widgets = CardContainerController().convertListProjectToListCardContainer(projects: projects, settingsManager: settingsManager);
     return Card(
       child: ListView(
         shrinkWrap: true,
@@ -39,46 +30,36 @@ class CategorySelectorState extends State<CategorySelector> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text("About Me"),
-              Checkbox(
-                  value: isAboutMe,
-                  onChanged: (change) {
-                    if (change) {
-                      this.widget.sizer.increaseSize(me);
-                    } else
-                      this.widget.sizer.decreaseSize(me);
-                    setState(() => {isAboutMe = change});
-                  }),
+              CheckBoxCategory(
+                blocCategory: BlocCategory(),
+                containerSizer: this.sizer,
+                category: "knowledge",
+                widgetsToPrint: widgets.where((i) => i.project.projectType == "knowledge").toList(),
+              ),
             ],
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Project 2"),
-              Checkbox(
-                  value: isProject,
-                  onChanged: (change) {
-                    if (change) {
-                      this.widget.sizer.increaseSize(project);
-                    } else
-                      this.widget.sizer.decreaseSize(project);
-                    setState(() => {isProject = change});
-                  }),
+              Text("Project"),
+              CheckBoxCategory(
+                blocCategory: BlocCategory(),
+                containerSizer: this.sizer,
+                category: "project",
+                widgetsToPrint: widgets.where((i) => i.project.projectType == "project").toList(),
+              ),
             ],
           ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text("My CV"),
-              Checkbox(
-                  value: isCV,
-                  onChanged: (change) {
-                    if(change) {
-                      this.widget.sizer.increaseSize(cv);
-                    }
-                    else
-                      this.widget.sizer.decreaseSize(cv);
-                    setState(() => {isCV = change});
-                  }),
+              CheckBoxCategory(
+                blocCategory: BlocCategory(),
+                containerSizer: this.sizer,
+                category: "cv",
+                widgetsToPrint: widgets.where((i) => i.project.projectType == "cv").toList(),
+              ),
             ],
           ),
         ],

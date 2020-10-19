@@ -1,31 +1,30 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
+import 'package:portfolio_web/widget/CardContainer.dart';
+import 'package:portfolio_web/widget/CardContainerProject.dart';
 import 'bloc.dart';
 
 class ContainerSizer extends Bloc {
-  final StreamController<List<Widget>> _size = StreamController<List<Widget>>();
-  final List<Widget> containers = new List<Widget>();
+  final StreamController<List<CardContainer>> _size = StreamController<List<CardContainer>>();
+  final List<CardContainer> containers = new List<CardContainer>();
 
   // Input
-  Sink<List<Widget>> get sink => _size.sink;
+  Sink<List<CardContainer>> get sink => _size.sink;
 
   // Output
-  Stream<List<Widget>> get stream => _size.stream;
+  Stream<List<CardContainer>> get stream => _size.stream;
 
   ContainerSizer() {
     sink.add(containers);
   }
 
-  increaseSize(Widget widget) {
-    containers.add(widget);
+  increaseSize(List<CardContainer> widget) {
+    containers.addAll(widget);
     sink.add(containers);
   }
 
-  decreaseSize(Widget widget) {
-    if (containers.contains(widget)) {
-      containers.remove(widget);
-      sink.add(containers);
-    }
+  decreaseSize(String type) async {
+    containers.removeWhere((element) => identical(element.project.projectType, type));
+    sink.add(containers);
   }
 
   @override

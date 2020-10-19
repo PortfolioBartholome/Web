@@ -1,39 +1,22 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio_web/widget/BorderSelector.dart';
+import 'package:portfolio_web/model/Project.dart';
+import 'package:portfolio_web/services/SettingsManager.dart';
+import 'package:portfolio_web/widget/CardContainerKnowledge.dart';
+import 'package:portfolio_web/widget/CardContainerProject.dart';
+
+import 'CardContainerCV.dart';
 
 class CardContainer extends StatelessWidget {
-  final Color color;
-  final int size;
-  CardContainer({
-    @required this.color,
-    this.size = 0,
-  });
+  final SettingsManager settingsManager;
+  final Project project;
+
+  CardContainer(
+      {@required this.settingsManager, @required this.project});
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      flex: 5,
-      child: Card(
-        elevation: 8,
-        child: Container(
-          child: Column(
-            children: [
-              Text(
-                "Lorem ipsum dolor sit amet,"
-                    " consectetur adipiscing elit,"
-                    " sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                    " Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                    " Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."
-                    " Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
-              ),
-            ],
-          ),
-          decoration: myBoxDecoration(this.color),
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-        ),
-      ),
-    );
+    return project.projectType == "project" ? CardContainerProject(project: project, settingsManager: settingsManager)
+        : project.projectType == "cv" ? CardContainerCV(project: project, settingsManager: settingsManager)
+        : CardContainerKnowledge(project: project, settingsManager: settingsManager);
   }
 }
