@@ -3,12 +3,9 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
-import 'package:portfolio_web/model/IProject.dart';
 import 'package:portfolio_web/model/Project.dart';
 import 'package:portfolio_web/services/HttpManager.dart';
 import 'package:portfolio_web/services/ResponseManager.dart';
-import 'package:portfolio_web/services/SettingsManager.dart';
-import 'package:portfolio_web/widget/CardContainer.dart';
 
 class ProjectController {
 
@@ -35,4 +32,12 @@ class ProjectController {
     projects.addAll(list.map((model) => Project.fromJson(model)).toList());
     return projects;
   }
+  
+  Set<String> getAllProjectType(List<Project> projects) {
+    var projectTypes = Set<String>();
+    projects.forEach((element) => projectTypes.add(element.projectType));
+    return projectTypes;
+  }
+
+
 }
