@@ -3,16 +3,16 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:global_configuration/global_configuration.dart';
-import 'package:portfolio_web/model/Project.dart';
+import 'package:portfolio_web/model/Knowledge.dart';
 import 'package:portfolio_web/services/HttpManager.dart';
 import 'package:portfolio_web/services/ResponseManager.dart';
 
-class ProjectController {
-  Future<List<Project>> getAllProject(
+class KnowledgeController {
+  Future<List<Knowledge>> getAllKnowledge(
       {@required BuildContext context,
-      @required GlobalConfiguration globalConfiguration}) async {
+        @required GlobalConfiguration globalConfiguration}) async {
     HttpManager httpManager = HttpManager(
-        path: 'project',
+        path: 'knowledge',
         context: context,
         globalConfiguration: globalConfiguration);
     await httpManager.get();
@@ -20,13 +20,13 @@ class ProjectController {
       response: httpManager.response,
       context: context,
     );
-    return getProjectsFromJson(jsonToDecode: responseManager.response.body);
+    return getKnowledgeFromJson(jsonToDecode: responseManager.response.body);
   }
 
-  List<Project> getProjectsFromJson({@required String jsonToDecode}) {
-    var projects = List<Project>();
+  List<Knowledge> getKnowledgeFromJson({@required String jsonToDecode}) {
+    var knowledge = List<Knowledge>();
     Iterable list = json.decode(jsonToDecode);
-    projects.addAll(list.map((model) => Project.fromJson(model)).toList());
-    return projects;
+    knowledge.addAll(list.map((model) => Knowledge.fromJson(model)).toList());
+    return knowledge;
   }
 }
