@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio_web/view/MyHomeView.dart';
+import 'package:portfolio_web/view/HomeView.dart';
 
 void main() {
   runApp(
     MaterialApp(
-      home: MyHomeView(),
+      theme: ThemeData(fontFamily: 'CaviarDreams'),
+      home: HomeView(),
     ),
   );
 }
