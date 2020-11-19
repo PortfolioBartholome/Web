@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:portfolio_web/model/IProject.dart';
 
-class CV extends IProject {
+class Home {
   int id;
   String name;
   String content;
@@ -9,10 +8,10 @@ class CV extends IProject {
   String projectType;
   String specialLink;
 
-  CV({@required this.id, @required this.name, @required this.content,@required this.language,@required this.projectType,@required this.specialLink});
+  Home({@required this.id, @required this.name, @required this.content,@required this.language,@required this.projectType,@required this.specialLink});
 
-  factory CV.fromJson(Map<String, dynamic> json) {
-    return CV(
+  factory Home.fromJson(Map<String, dynamic> json) {
+    return Home(
         id: json['id'],
         name: json['title'],
         content: json['body'],

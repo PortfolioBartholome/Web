@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:portfolio_web/model/IProject.dart';
 
-class Project extends IProject {
+class Project {
   int id;
   String name;
   String content;
