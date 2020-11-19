@@ -33,11 +33,4 @@ class ProjectController {
     return projects;
   }
   
-  Set<String> getAllProjectType(List<Project> projects) {
-    var projectTypes = Set<String>();
-    projects.forEach((element) => projectTypes.add(element.projectType));
-    return projectTypes;
-  }
-
-
 }

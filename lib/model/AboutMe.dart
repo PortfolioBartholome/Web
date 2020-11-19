@@ -2,22 +2,23 @@ import 'package:flutter/cupertino.dart';
 
 class AboutMe {
   int id;
-  String name;
   String content;
-  String language;
-  String projectType;
   String specialLink;
+  String imagePath;
 
-  AboutMe({@required this.id, @required this.name, @required this.content,@required this.language,@required this.projectType,@required this.specialLink});
+  AboutMe({@required this.id, @required this.content, @required this.imagePath ,@required this.specialLink});
 
   factory AboutMe.fromJson(Map<String, dynamic> json) {
     return AboutMe(
         id: json['id'],
-        name: json['title'],
         content: json['body'],
-        language: json['language'],
-        projectType: json['projectType'],
-        specialLink: json['specialLink']
+        specialLink: json['specialLink'],
+        imagePath: json['imagePath']
     );
+  }
+
+  @override
+  String toString() {
+    return 'AboutMe{id: $id, content: $content, specialLink: $specialLink, imagePath: $imagePath}';
   }
 }

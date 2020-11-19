@@ -5,10 +5,10 @@ class Project {
   String name;
   String content;
   String language;
-  String projectType;
+  String imagePath;
   String specialLink;
 
-  Project({@required this.id, @required this.name, @required this.content,@required this.language,@required this.projectType,@required this.specialLink});
+  Project({@required this.id, @required this.name, @required this.content,@required this.language,@required this.imagePath,@required this.specialLink});
 
   factory Project.fromJson(Map<String, dynamic> json) {
     return Project(
@@ -16,13 +16,13 @@ class Project {
         name: json['name'],
         content: json['content'],
         language: json['language'],
-        projectType: json['projectType'],
+        imagePath: json['imagePath'],
         specialLink: json['specialLink']
     );
   }
 
   @override
   String toString() {
-    return 'Project{id: $id, name: $name, content: $content, language: $language, projectType: $projectType, specialLink: $specialLink}';
+    return 'Project{id: $id, name: $name, content: $content, language: $language, imagePath: $imagePath, specialLink: $specialLink}';
   }
 }
