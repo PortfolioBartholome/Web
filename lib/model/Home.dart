@@ -1,12 +1,24 @@
 import 'package:flutter/cupertino.dart';
 
-class Home {
+import 'APIElement.dart';
+
+class Home extends APIElement{
   int id;
   String content;
-  String imagePath;
   String specialLink;
+  String imagePath;
 
-  Home({@required this.id, @required this.content,@required this.imagePath,@required this.specialLink});
+  Home(
+      {@required this.id,
+        @required this.content,
+        @required this.imagePath,
+        @required this.specialLink})
+      : super(
+      id: id,
+      content: content,
+      specialLink: specialLink,
+      imagePath: imagePath,
+      type: "Home");
 
   factory Home.fromJson(Map<String, dynamic> json) {
     return Home(

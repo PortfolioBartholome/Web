@@ -8,9 +8,8 @@ import 'package:portfolio_web/services/HttpManager.dart';
 import 'package:portfolio_web/services/ResponseManager.dart';
 
 class HomeController {
-  
 
-  Future<List<Home>> getAllKnowledge(
+  Future<List<Home>> getAllHome(
       {@required BuildContext context,
         @required GlobalConfiguration globalConfiguration}) async {
     HttpManager httpManager = HttpManager(

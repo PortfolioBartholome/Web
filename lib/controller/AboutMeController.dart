@@ -8,7 +8,7 @@ import 'package:portfolio_web/services/HttpManager.dart';
 import 'package:portfolio_web/services/ResponseManager.dart';
 
 class AboutMeController {
-  Future<List<AboutMe>> getAllProject(
+  Future<List<AboutMe>> getAllAboutMe(
       {@required BuildContext context,
         @required GlobalConfiguration globalConfiguration}) async {
     HttpManager httpManager = HttpManager(

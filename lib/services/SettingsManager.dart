@@ -1,16 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:global_configuration/global_configuration.dart';
-import 'package:portfolio_web/controller/ProjectController.dart';
-import 'package:portfolio_web/model/Project.dart';
+import 'package:portfolio_web/controller/GlobalController.dart';
+import 'package:portfolio_web/model/APIElement.dart';
 
 class SettingsManager {
   GlobalConfiguration cfg;
 
-  Future<List<Project>> instantiateConfigurationAndGetAllProject({@required BuildContext context}) async {
-    cfg = new GlobalConfiguration();
+  Future<List<APIElement>> instantiateConfiguration({@required BuildContext context}) async {
+    cfg = GlobalConfiguration();
     await GlobalConfiguration().loadFromPath("assets/cfg/settings.json");
-    ProjectController projectController = ProjectController();
-    return await projectController.getAllProject(context: context,globalConfiguration: cfg);
+    GlobalController globalController = GlobalController();
+    return globalController.getEverything(context: context, globalConfiguration: cfg);
   }
 
 

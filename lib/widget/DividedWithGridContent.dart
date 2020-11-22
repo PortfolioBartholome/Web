@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_web/bloc/bloc_menu.dart';
+import 'package:portfolio_web/model/APIElement.dart';
 import 'package:portfolio_web/model/MenuSelected.dart';
 import 'package:portfolio_web/widget/FormattedPortfolioContent.dart';
 import 'package:portfolio_web/widget/NoData.dart';
 
 class DividedWithGridContent extends StatelessWidget {
   final BlocMenu blocMenu;
-
-  DividedWithGridContent({@required this.blocMenu});
+  final List<APIElement> apiElements;
+  final String type;
+  
+  DividedWithGridContent({@required this.blocMenu,@required this.apiElements, @required this.type});
 
   Widget square(String title, int index) {
     return RaisedButton(
-      onPressed: () => this.blocMenu.update(MenuSelected(index: index, title: title)),
+      onPressed: () { this.blocMenu.update(MenuSelected(index: index, title: title));
+      },
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(18.0),
       ),
@@ -24,21 +28,31 @@ class DividedWithGridContent extends StatelessWidget {
       ),
     );
   }
+  
+  List<Widget> convertAPIElementsToWidgets()
+  {
+    List<Widget> list = [];
+    int index = 0;
+    apiElements.where((element) => element.type == type).forEach((element) { 
+      list.add(square(element.name, index));
+      index++;
+    });
+    return list;
+  }
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> testList2 = [];
+    List<Widget> testList2 = convertAPIElementsToWidgets();
     Widget gridview() {
-      testList2.add(square("DART",0));
-      testList2.add(square("FLUTTER",1));
-      testList2.add(square("BLOC",2));
-      testList2.add(square("TRUC",3));
-      testList2.add(square("MUCHE",4));
       return Wrap(
+        alignment: WrapAlignment.center,
         children: testList2,
         spacing: 20,
+        runSpacing: 20,
       );
     }
+    List<Widget> listDefaultRow = [];
+    apiElements.where((element) => element.type == type).forEach((element) {listDefaultRow.add(defaultRow(context, element)); });
 
     return SingleChildScrollView(
       child: Column(
@@ -56,12 +70,11 @@ class DividedWithGridContent extends StatelessWidget {
             builder:
                 (BuildContext context, AsyncSnapshot<MenuSelected> snapshot) {
               if (!snapshot.hasData)
-                return defaultRow(context);
+                return NoData();
               else
                 return IndexedStack(
                   index: snapshot.data.index,
-                  children: [defaultRow(context),
-                    defaultRow(context),defaultRow(context),NoData(),defaultRow(context),NoData()],
+                  children: listDefaultRow,
                 );
             },
           ),
@@ -70,14 +83,14 @@ class DividedWithGridContent extends StatelessWidget {
     );
   }
 
-  Row defaultRow(BuildContext context) {
+  Row defaultRow(BuildContext context, APIElement apiElement) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
           height: MediaQuery.of(context).size.height / 2 - 20,
           width: MediaQuery.of(context).size.width / 2 - 20,
-          child: FormattedPortfolioContent(),
+          child: FormattedPortfolioContent(apiElement: apiElement,),
         ),
         Container(
           height: MediaQuery.of(context).size.height / 2 - 20,
